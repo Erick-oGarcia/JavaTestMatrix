@@ -64,3 +64,8 @@ build/
 .env
 .env.local
 local.properties
+
+# Allure (generated results, reports and history)
+allure-results/
+allure-report/
+allure-history/

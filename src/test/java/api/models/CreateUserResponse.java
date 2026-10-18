@@ -1,6 +1,9 @@
 package api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 // Replaced Lombok with explicit POJO for compatibility
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CreateUserResponse {
     private String name;
     private String job;
