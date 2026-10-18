@@ -73,7 +73,8 @@ JavaTestMatrix/
         │       │
         │       └── utils/
         │           ├── ConfigLoader.java # Loads configurations from files (.properties, .env) and environment variables.
-        │           └── ScreenshotUtils.java # Utility for capturing screen screenshots.
+        │           ├── DBUtils.java      # Opens JDBC connections (H2 in memory by default; DB_URL/DB_USER/DB_PASSWORD override it).
+        │           └── WaitUtils.java    # Explicit waits (WebDriverWait + ExpectedConditions).
         │
         └── resources/
             ├── config.properties # Properties file to store URLs, users, etc.
@@ -138,6 +139,15 @@ This project uses **GitHub Actions** for continuous integration and continuous d
 -   **Secrets**: For the pipeline to run API tests successfully, you must add your API key as a secret in your GitHub repository:
     -   Navigate to `Settings` > `Secrets and variables` > `Actions`.
     -   Create a new secret named `API_KEY` with your API key as the value.
+
+## 🗄️ Database Validation
+
+`DBValidationTest` checks data consistency directly in the database, independently of what the UI or the API report: every active card has exactly one activation transaction, no card is activated twice, and each balance equals the sum of its transactions.
+
+-   **The test owns its data**: it creates and seeds the `cards` and `transactions` tables before the class runs, so it never depends on leftovers from other tests or environments.
+-   **Self-contained by default**: with nothing configured it uses an in-memory **H2** database, so it runs locally and in CI with no setup.
+-   **Real database when needed**: set `DB_URL`, `DB_USER` and `DB_PASSWORD` as environment variables or system properties (`-DDB_URL=...`) to point the same checks at an actual database.
+-   **Detection proof**: seeding a second activation for the same card makes `noCardHasDuplicateActivations` and `balanceMatchesTransactions` fail; removing it turns them green again. A check that was never seen failing proves nothing.
 
 ## 🔮 Future Improvements
 
