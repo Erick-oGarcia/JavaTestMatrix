@@ -1,8 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","297","testInvalidLogin","Surefire suite","2026-10-18","passed","2026-10-18","tests.LoginTest","Surefire test","tests.LoginTest","testInvalidLogin"
-"","15","testDBConnectionAttempt","Surefire suite","2026-10-18","passed","2026-10-18","tests.DBValidationTest","Surefire test","tests.DBValidationTest","testDBConnectionAttempt"
-"","812","getUsersListAndValidate","Surefire suite","2026-10-18","passed","2026-10-18","api.UserAPITest","Surefire test","api.UserAPITest","getUsersListAndValidate"
-"","15","testTittleValid","Surefire suite","2026-10-18","passed","2026-10-18","tests.LoginTest","Surefire test","tests.LoginTest","testTittleValid"
-"","13038","Runs Cucumber Scenarios","Surefire suite","2026-10-18","passed","2026-10-18","runner.TestRunner","Surefire test","runner.TestRunner","runScenario"
-"","1361","createNewUserAndValidateResponse","Surefire suite","2026-10-18","passed","2026-10-18","api.CreateUserAPITest","Surefire test","api.CreateUserAPITest","createNewUserAndValidateResponse"
-"","289","testSuccessfulLogin","Surefire suite","2026-10-18","passed","2026-10-18","tests.LoginTest","Surefire test","tests.LoginTest","testSuccessfulLogin"
