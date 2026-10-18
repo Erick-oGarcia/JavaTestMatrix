@@ -2,6 +2,7 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 
@@ -28,20 +29,26 @@ public class LoginTest extends BaseTest {
         //Assert.assertEquals(driver.getTitle(), "WRONG TITLE HERE", "Force failure for screenshot test.");
     }
 
-    @Test
-    public void testInvalidLogin() {
-        //Use the object 'driver' initialized in BaseTest
+    // Each row is one scenario: username, password, expected error message.
+    // Adding a scenario means adding a row, not a new test method.
+    @DataProvider(name = "invalidLogins")
+    public Object[][] invalidLogins() {
+        return new Object[][] {
+            {"locked_out_user", "secret_sauce", "Sorry, this user has been locked out."},
+            {"standard_user", "wrong_password", "Username and password do not match any user in this service"},
+            {"", "secret_sauce", "Username is required"}
+        };
+    }
+
+    @Test(dataProvider = "invalidLogins")
+    public void testInvalidLoginShowsError(String username, String password, String expectedMessage) {
         LoginPage loginPage = new LoginPage(driver);
 
-        loginPage.login("invalid_user","invalid_password");
+        loginPage.login(username, password);
 
-        String errorMessage = loginPage.getErrorMessage();
-        System.out.println("Error Message: " + errorMessage);
-
-        String expected = "Epic sadface: Username and password do not match any user in this service";
-        // Use assertEquals on trimmed text for a deterministic check
-        Assert.assertTrue(errorMessage.contains("Epic sadface: Username and password do not match any user in this service"), "The error message is not as expected");
-
+        String actualMessage = loginPage.getErrorMessage();
+        Assert.assertTrue(actualMessage.contains(expectedMessage),
+                "Unexpected error message for user '" + username + "': " + actualMessage);
     }
 
 }
